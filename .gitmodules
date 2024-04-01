@@ -1,6 +1,0 @@
-[submodule "lib/external/glfw"]
-	path = lib/external/glfw
-	url = https://github.com/glfw/glfw
-[submodule "lib/external/glm"]
-	path = lib/external/glm
-	url = https://github.com/icaven/glm
