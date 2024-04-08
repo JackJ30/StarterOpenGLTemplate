@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.1.0)
-project(StarterOpenGL VERSION 1.0.0)
+project(SecondAttemptOpenGL VERSION 1.0.0)
 cmake_policy(SET CMP0072 NEW)
 
 set(CMAKE_CXX_STANDARD 17)
@@ -15,6 +15,11 @@ set(SOURCE_FILES
 	src/main.cpp
 )
 
-add_executable(${PROJECT_NAME} ${SOURCE_FILES})
+add_executable(${PROJECT_NAME} ${SOURCE_FILES} lib/external/stb/stb_image_implementation.cpp)
 
-target_link_libraries(${PROJECT_NAME} PRIVATE OpenGL::GL glad glfw glm)
+# copy resources folder
+add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD COMMAND ${CMAKE_COMMAND} -E create_symlink ${CMAKE_SOURCE_DIR}/resources $<TARGET_FILE_DIR:${PROJECT_NAME}>/resources)
+
+# link and inculde
+target_link_libraries(${PROJECT_NAME} PUBLIC OpenGL::GL glad glfw glm)
+target_include_directories(${PROJECT_NAME} PUBLIC lib/external/stb)
