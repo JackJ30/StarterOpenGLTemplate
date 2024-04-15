@@ -4,3 +4,6 @@
 [submodule "lib/external/glm"]
 	path = lib/external/glm
 	url = https://github.com/icaven/glm
+[submodule "lib/external/assimp"]
+	path = lib/external/assimp
+	url = https://github.com/assimp/assimp

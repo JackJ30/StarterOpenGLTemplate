@@ -2,6 +2,10 @@
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 
+void processInput(GLFWwindow *window);
+
+int width, height;
+
 int main()
 {
     // Set up GLFW
@@ -22,25 +26,37 @@ int main()
     glfwMakeContextCurrent(window);
 
     // Load OpenGL and configure
-    gladLoadGL();
+    if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
+    {
+        std::cout << "Failed to initialize GLAD" << std::endl;
+        return -1;
+    }  
 
-    int w,h;
-	glfwGetFramebufferSize(window, &w, &h); // get size
-    glViewport(0,0,w,h); // tell OpenGL size
+	glfwGetFramebufferSize(window, &width, &height); // get size
+    glViewport(0,0,width,height); // tell OpenGL size
 
     glClearColor(0.9f, 0.6f, 0.85f, 1.0f);
 
     // Main Loop
     while (!glfwWindowShouldClose(window))
     {
-        glfwPollEvents();
-        
+        processInput(window);
+
         glClear(GL_COLOR_BUFFER_BIT);
+
         glfwSwapBuffers(window);
+        glfwPollEvents();
     }
 
     // Clean up
     glfwDestroyWindow(window);
     glfwTerminate();
+
     return 0;
+}
+
+void processInput(GLFWwindow *window)
+{
+    if(glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
+        glfwSetWindowShouldClose(window, true);
 }
